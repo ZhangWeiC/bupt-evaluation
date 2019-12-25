@@ -5,55 +5,55 @@
         <span>综合评估</span>
       </div>
       <el-row :gutter="20">
-        <el-col :span="6" v-for="(item, index) in singleArr" :key="index">
+        <el-col v-for="(item, index) in singleArr" :key="index" :span="6">
           <el-card class="compre-card-item" shadow="hover">
             <p class="compre-card-item-header">
-              <span>{{item.title}}</span>
-              <el-tooltip :content='item.content' placement="top">
-                <i class="el-icon-info"></i>
+              <span>{{ item.title }}</span>
+              <el-tooltip :content="item.content" placement="top">
+                <i class="el-icon-info" />
               </el-tooltip>
             </p>
             <div class="compre-card-item-value">
-              {{item.value | formatNumber}}
+              {{ item.value | formatNumber }}
             </div>
             <p class="compre-card-item-ava">
-              <span>平均值：<b>{{item.average | formatNumber}}</b></span>
+              <span>平均值：<b>{{ item.average | formatNumber }}</b></span>
             </p>
           </el-card>
         </el-col>
       </el-row>
       <el-row :gutter="20" style="margin-top: 15px">
-        <el-col :span="6" v-for="(item, index) in singleArr" :key="index">
+        <el-col v-for="(item, index) in singleArr" :key="index" :span="6">
           <el-card class="compre-card-item" shadow="hover">
             <p class="compre-card-item-header">
-              <span>{{item.title}}</span>
-              <el-tooltip :content='item.content' placement="top">
-                <i class="el-icon-info"></i>
+              <span>{{ item.title }}</span>
+              <el-tooltip :content="item.content" placement="top">
+                <i class="el-icon-info" />
               </el-tooltip>
             </p>
             <div class="compre-card-item-value">
-              {{item.value | formatNumber}}
+              {{ item.value | formatNumber }}
             </div>
             <p class="compre-card-item-ava">
-              <span>平均值：<b>{{item.average | formatNumber}}</b></span>
+              <span>平均值：<b>{{ item.average | formatNumber }}</b></span>
             </p>
           </el-card>
         </el-col>
       </el-row>
       <el-row :gutter="20" style="margin-top: 15px">
-        <el-col :span="6" v-for="(item, index) in singleArr1" :key="index">
+        <el-col v-for="(item, index) in singleArr1" :key="index" :span="6">
           <el-card class="compre-card-item" shadow="hover">
             <p class="compre-card-item-header">
-              <span>{{item.title}}</span>
-              <el-tooltip :content='item.content' placement="top">
-                <i class="el-icon-info"></i>
+              <span>{{ item.title }}</span>
+              <el-tooltip :content="item.content" placement="top">
+                <i class="el-icon-info" />
               </el-tooltip>
             </p>
             <div class="compre-card-item-value">
-              {{item.value | formatNumber}}
+              {{ item.value | formatNumber }}
             </div>
             <p class="compre-card-item-ava">
-              <span>平均值：<b>{{item.average | formatNumber}}</b></span>
+              <span>平均值：<b>{{ item.average | formatNumber }}</b></span>
             </p>
           </el-card>
         </el-col>
@@ -64,7 +64,7 @@
         <span>全指标展示</span>
       </div>
       <div class="charts-container">
-        <div id="charts"></div>
+        <div id="charts" />
       </div>
     </el-card>
   </div>
@@ -75,17 +75,17 @@ export default {
   data() {
     return {
       singleArr: [
-        {title: '拓扑平均度', content: '拓扑平均度的解释', value: 6560, average: 5320},
-        {title: '节点平均度', content: '节点平均度的解释', value: 8893, average: 7392},
-        {title: '平均路径长度', content: '平均路径长度的解释', value: 3473, average: 3966},
-        {title: '拓扑联通度', content: '拓扑联通度的解释', value: 5273, average: 5867}
+        { title: '拓扑平均度', content: '拓扑平均度的解释', value: 6560, average: 5320 },
+        { title: '节点平均度', content: '节点平均度的解释', value: 8893, average: 7392 },
+        { title: '平均路径长度', content: '平均路径长度的解释', value: 3473, average: 3966 },
+        { title: '拓扑联通度', content: '拓扑联通度的解释', value: 5273, average: 5867 }
       ],
       singleArr1: [
-        {title: '拓扑平均度', content: '拓扑平均度的解释', value: 6560, average: 5320},
-        {title: '节点平均度', content: '节点平均度的解释', value: 8893, average: 7392}
+        { title: '拓扑平均度', content: '拓扑平均度的解释', value: 6560, average: 5320 },
+        { title: '节点平均度', content: '节点平均度的解释', value: 8893, average: 7392 }
       ],
       option: {
-          title: {
+        title: {
           text: '指标雷达图'
         },
         tooltip: {},
@@ -103,32 +103,32 @@ export default {
             }
           },
           indicator: [
-            { name: '指标1', max: 8000},
-            { name: '指标2', max: 9000},
-            { name: '指标3', max: 4000},
-            { name: '指标4', max: 6000},
-            { name: '指标5', max: 8000},
-            { name: '指标6', max: 9000},
-            { name: '指标7', max: 4000},
-            { name: '指标8', max: 6000},
-            { name: '指标9', max: 8000},
-            { name: '指标10', max: 9000}
+            { name: '指标1', max: 8000 },
+            { name: '指标2', max: 9000 },
+            { name: '指标3', max: 4000 },
+            { name: '指标4', max: 6000 },
+            { name: '指标5', max: 8000 },
+            { name: '指标6', max: 9000 },
+            { name: '指标7', max: 4000 },
+            { name: '指标8', max: 6000 },
+            { name: '指标9', max: 8000 },
+            { name: '指标10', max: 9000 }
           ]
         },
         series: [
           {
             name: '实际值',
             type: 'radar',
-            symbol: "circle",
+            symbol: 'circle',
             symbolSize: 10,
             itemStyle: {
               color: 'rgba(86,199,60, 1)',
               borderColor: 'rgba(86,199,60, 0.3)',
-              borderWidth: 10,
+              borderWidth: 10
             },
             lineStyle: {
               normal: {
-                color: "rgba(86,199,60, 1)",
+                color: 'rgba(86,199,60, 1)',
                 width: 2
               }
             },
@@ -139,16 +139,16 @@ export default {
           {
             name: '平均值',
             type: 'radar',
-            symbol: "circle",
+            symbol: 'circle',
             symbolSize: 10,
             itemStyle: {
               color: 'rgba(0,183,238, 1)',
               borderColor: 'rgba(0,183,238, 0.4)',
-              borderWidth: 10,
+              borderWidth: 10
             },
             lineStyle: {
               normal: {
-                color: "rgba(0,183,238, 1)",
+                color: 'rgba(0,183,238, 1)',
                 width: 2
               }
             },
@@ -165,8 +165,8 @@ export default {
   },
   methods: {
     initCharts() {
-      let chart = this.$charts.init(document.getElementById('charts'));
-      chart.setOption(this.option);
+      const chart = this.$charts.init(document.getElementById('charts'))
+      chart.setOption(this.option)
     }
   }
 }
@@ -213,7 +213,7 @@ export default {
               font-weight: 500;
               color: #409EFF;
             }
-          } 
+          }
         }
         /deep/ .el-icon-info:hover {
           cursor: pointer;
