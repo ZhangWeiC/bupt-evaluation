@@ -1,72 +1,86 @@
 <template>
-  <div class="project-container">
-    <div class="form-contain">
-      <el-form :inline="true" class="form-inline">
-        <el-form-item label="战 区：" class="pro-form-item">
-          <el-select v-model="user" placeholder="活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="军兵种：" class="pro-form-item">
-          <el-select v-model="region" placeholder="活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="战略方向：" class="pro-form-item">
-          <el-select v-model="region1" placeholder="活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item class="pro-form-item">
-          <el-button type="primary" @click="onSubmit">查询</el-button>
-        </el-form-item>
-      </el-form>
-      
+    <div class="project-container">
+        <el-card class="header-card">
+            <el-row>
+                <el-col :span="14">
+                    <div class="left-header">
+                        <div class="left-header-img">
+						</div>
+                        <div class="left-header-descipt">
+							<h3>
+								能打胜战，作风优良
+							</h3>
+							<p>
+								<span>XX作战中心坐席1</span>
+								<span>xxxx-平台数据技术部门-基础平台部</span>
+							</p>
+						</div>
+                    </div>
+                </el-col>
+                <el-col :span="10">
+					<el-row class="right-header">
+						<el-col :span="8" style="border-right: 1px solid #DCDFE6">
+							<p class="right-header-item">
+								项目总数
+							</p>
+							<h3>56</h3>
+						</el-col>
+						<el-col :span="8" style="border-right: 1px solid #DCDFE6">
+							<p class="right-header-item">
+								统计指标1
+							</p>
+							<h3>8,921</h3>
+						</el-col>
+						<el-col :span="8">
+							<p class="right-header-item">
+								统计指标2
+							</p>
+							<h3>2,223</h3>
+						</el-col>
+					</el-row>
+				</el-col>
+            </el-row>
+        </el-card>
+		<div class="main-contain">
+			<div class="main-contain-left">
+				<el-card class="recent-card">
+					<div slot="header" class="recent-card-header">
+						<span>最近浏览的项目</span>
+					</div>
+				</el-card>
+				<el-card class="project-card">
+					<div slot="header" class="project-card-header">
+						<span>全部项目</span>
+					</div>
+					<el-table :data="tableData" border style="width: 100%" max-height="500" stripe>
+						<el-table-column type="index" label="序号" width="80" align="center"/>
+						<el-table-column prop="name" label="项目名称" align="center"/>
+						<el-table-column prop="area" label="战区" align="center"/>
+						<el-table-column prop="type" label="军兵种" align="center"/>
+						<el-table-column prop="direction" label="战略方向" align="center"/>
+						<el-table-column prop="operation" label="操作" align="center">
+							<template slot-scope="scope">
+								<el-button
+									size="mini"
+									type="primary"
+									@click="handleDelete(scope.$index, scope.row)"
+								>查看详情</el-button>
+							</template>
+						</el-table-column>
+					</el-table>
+					<div class="project-card-pagination">
+						<el-pagination layout="prev, pager, next" :total="1000" />
+					</div>
+				</el-card>
+			</div>
+			<div class="main-contain-right"></div>
+		</div>
+        
     </div>
-
-    <el-card class="project-card">
-      <div slot="header" class="project-card-header">
-        <span>项目列表</span>
-      </div>
-      <el-table
-        :data="tableData"
-        border
-        style="width: 100%"
-        max-height="500"
-        stripe
-      >
-        <el-table-column type="index" label="序号" width="80"></el-table-column>
-        <el-table-column prop="name" label="项目名称"></el-table-column>
-        <el-table-column prop="area" label="战区"></el-table-column>
-        <el-table-column prop="type" label="军兵种"></el-table-column>
-        <el-table-column prop="direction" label="战略方向"></el-table-column>
-        <el-table-column prop="operation" label="操作">
-          <template slot-scope="scope">
-            <el-button
-              size="mini"
-              @click="handleEdit(scope.$index, scope.row)">查看拓扑</el-button>
-            <el-button
-              size="mini"
-              type="primary"
-              @click="handleDelete(scope.$index, scope.row)">评估</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="project-card-pagination">
-        <el-pagination
-          layout="prev, pager, next"
-          :total="1000">
-        </el-pagination>
-      </div>
-    </el-card>
-  </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 
 export default {
   name: 'Dashboard',
@@ -76,45 +90,108 @@ export default {
       region: '',
       region1: '',
       tableData: [
-        {name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx'},
-        {name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx'},
-        {name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx'},
-        {name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx'},
-        {name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx'},
-        {name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx'},
-        {name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx'}
+        { name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx' },
+        { name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx' },
+        { name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx' },
+        { name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx' },
+        { name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx' },
+        { name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx' },
+        { name: 'xxx', area: '南方战区', type: '海军', direction: 'xxx' }
       ]
-    };
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .project-container {
-  .form-contain {
-    min-height: 80px;
-    margin-top: 2px;
-    background-color: #fff;
-    .form-inline {
-      margin-left: 50px;
-      .pro-form-item {
-        margin-left: 10px;
-        margin-top: 15px;
-      }
+    .header-card {
+        margin: 15px 20px;
+        height: 110px;
     }
-  }
-  .project-card {
-    margin: 15px 20px;
-    &-header {
-      span {
-        font-size: 18px;
-        font-weight: 700;
-      }
+	.left-header {
+		display: flex;
+		width: 100%;
+	}
+	.left-header-img {
+		width: 85px;
+		height: 70px;
+		background: url('./static/img/WechatIMG101.jpeg');
+		background-size: cover;
+	}
+	.left-header-descipt {
+		flex: 1;
+		h3 {
+			margin: 10px;
+		}
+		p {
+			margin-left: 10px;
+			margin-top: 15px;
+			font-size: 11px;
+			color: #909399;
+			span:nth-child(1) {
+				padding-right: 10px;
+			}
+			span:nth-child(2) {
+				border-left: 1px solid #909399;
+				padding-left: 10px;
+			}
+		}
+	}
+	.right-header {
+		.right-header-item {
+			font-size: 14px;
+			color: #909399;
+			margin-bottom: 10px;
+			text-align: center;
+		}
+		h3 {
+			margin: 10px 0;
+			font-size: 22px;
+			font-weight: 500;
+			text-align: center;
+		}
+	}
+	.main-contain {
+		width: 100%;
+		display: flex;
+		border: 1px solid black;
+		// height: 100px;
+		&-left {
+			flex: 1;
+			overflow: auto;
+		}
+		&-right {
+			width: 350px;
+			border: 1px solid black;
+		}
+	}
+    .project-card {
+        margin: 15px 20px;
+        &-header {
+            span {
+                font-size: 18px;
+                font-weight: 700;
+            }
+        }
+        &-pagination {
+            margin-top: 10px;
+            text-align: center;
+        }
     }
-    &-pagination {
-      margin-top: 10px;
-      text-align: center;
+	.recent-card {
+        margin: 15px 20px;
+		margin-bottom: 30px;
+        &-header {
+            span {
+                font-size: 18px;
+                font-weight: 700;
+            }
+        }
+        &-pagination {
+            margin-top: 10px;
+            text-align: center;
+        }
     }
-  }
 }
 </style>
