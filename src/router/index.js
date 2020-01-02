@@ -58,29 +58,29 @@ export const constantRoutes = [
   {
     path: '/single',
     component: Layout,
-    redirect: '/single/topology',
+    redirect: '/single/plan',
     name: 'Example',
     meta: { title: '单项评估', icon: 'example' },
     children: [
       {
-        path: 'topology',
-        name: 'Topology',
-        component: () => import('@/views/topology/index'),
-        meta: { title: '拓扑安全评估', icon: 'table' }
+        path: 'plan',
+        name: 'Plan',
+        component: () => import('@/views/plan/index'),
+        meta: { title: '网络规划效能评估', icon: 'table' }
       },
       {
-        path: 'live',
-        name: 'Live',
-        component: () => import('@/views/live/index'),
-        meta: { title: '网络生存性评估', icon: 'tree' }
+        path: 'build',
+        name: 'Build',
+        component: () => import('@/views/build/index'),
+        meta: { title: '工程建设效能评估', icon: 'tree' }
       },
       {
-        path: 'maintain',
-        name: 'Maintain',
-        component: () => import('@/views/maintain/index'),
+        path: 'operations',
+        name: 'Operations',
+        component: () => import('@/views/operations/index'),
         meta: {
-          title: '网络维护指标评估',
-          icon: 'tree'
+          title: '系统运维效能评估',
+          icon: 'eye-open'
         }
       }
     ]
@@ -89,12 +89,16 @@ export const constantRoutes = [
   {
     path: '/comprehensive',
     component: Layout,
+    redirect: '/comprehensive/index',
+    name: 'Example',
+    alwaysShow: true,
+    meta: { title: '综合评估', icon: 'user' },
     children: [
       {
         path: 'index',
         name: 'Form',
         component: () => import('@/views/comprehensive/index'),
-        meta: { title: '综合评估', icon: 'form' }
+        meta: { title: '层次分析法', icon: 'form' }
       }
     ]
   },
