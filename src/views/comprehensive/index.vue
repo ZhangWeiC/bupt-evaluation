@@ -11,7 +11,7 @@
       </el-steps>
     </el-card>
     <el-card class="step-card">
-      <div v-if="step === 1" class="step-card-one">
+      <div v-show="step === 1" class="step-card-one">
         <el-form>
           <el-form-item label="目标层：" style="margin-bottom: 30px">
             <el-input v-model="formConfig.target" placeholder="请输入内容" />
@@ -73,12 +73,42 @@
             </el-form>
           </el-form-item>
           <el-form-item style="text-align:center">
-            <el-button type="primary" style="width: 200px;" @click="stepOne">下一步</el-button>
+            <el-button type="primary" style="width: 200px;" @click="toTwo">下一步</el-button>
           </el-form-item>
         </el-form>
       </div>
-      <div v-if="step === 2" class="step-card-two">
-        <div class="step-card-two-header" />
+      <div v-show="step === 2" v-loading="loading" class="step-card-two">
+        <h3 class="step-card-two-header">
+          构建对比矩阵
+        </h3>
+        <el-table :data="matrixArr" style="width: 90%; max-height: 500px; margin: 0 auto;">
+          <!-- <el-table-column prop="" ></el-table-column> -->
+          <el-table-column label=" " prop="name" />
+          <el-table-column label="指标一" prop="one" />
+          <el-table-column label="指标二" prop="two" />
+          <el-table-column label="指标三" prop="three" />
+          <el-table-column label="指标四" prop="four" />
+          <el-table-column label="指标五" prop="five" />
+        </el-table>
+        <el-form style="margin-top: 40px;">
+          <el-form-item style="text-align:center">
+            <el-button-group>
+              <el-button type="primary" style="width: 120px" icon="el-icon-arrow-left" @click="reOne">上一步</el-button>
+              <el-button type="primary" style="width: 120px" @click="toThree">开始分析<i class="el-icon-arrow-right el-icon--right" /></el-button>
+            </el-button-group>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div v-show="step === 3" class="step-card-three">
+        <h3>综合评估结果打分：80</h3>
+        <div class="step-card-three-charts">
+          <div id="charts" />
+        </div>
+        <el-form style="margin-top: 20px;">
+          <el-form-item style="text-align:center">
+            <el-button type="primary" style="width: 100px;" @click="reTwo">返回</el-button>
+          </el-form-item>
+        </el-form>
       </div>
     </el-card>
   </div>
@@ -112,7 +142,84 @@ export default {
         selectThree: [],
         selectFour: []
       },
-      step: 1
+      step: 1,
+      matrixArr: [{
+        name: '指标一',
+        one: 1,
+        two: 1,
+        three: 1,
+        four: 1,
+        five: 1
+      }, {
+        name: '指标二',
+        one: 1,
+        two: 1,
+        three: 1,
+        four: 1,
+        five: 1
+      }, {
+        name: '指标三',
+        one: 1,
+        two: 1,
+        three: 1,
+        four: 1,
+        five: 1
+      }, {
+        name: '指标四',
+        one: 1,
+        two: 1,
+        three: 1,
+        four: 1,
+        five: 1
+      }, {
+        name: '指标五',
+        one: 1,
+        two: 1,
+        three: 1,
+        four: 1,
+        five: 1
+      }],
+      loading: false,
+      option: {
+        title: {
+          text: ''
+        },
+        color: ['#409EFF'],
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+          }
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            data: ['指标一', '指标二', '指标三', '指标四', '指标五', '指标六', '指标七', '指标八', '指标九', '指标十'],
+            axisTick: {
+              alignWithLabel: true
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value'
+          }
+        ],
+        series: [
+          {
+            type: 'bar',
+            barWidth: '60%',
+            data: [20, 82, 91, 34, 90, 30, 31, 98, 64, 34]
+          }
+        ]
+      },
+      chart: null
     }
   },
   mounted() {
@@ -120,11 +227,25 @@ export default {
   },
   methods: {
     initCharts() {
-      const chart = this.$charts.init(document.getElementById('charts'))
-      chart.setOption(this.option)
+      this.chart = this.$charts.init(document.getElementById('charts'))
+      this.chart.setOption(this.option)
     },
-    stepOne() {
+    toTwo() {
       this.step = 2
+    },
+    async toThree() {
+      this.loading = true
+      await setTimeout(() => {
+        this.loading = false
+        this.step = 3
+        this.initCharts()
+      }, 2000)
+    },
+    reTwo() {
+      this.step = 2
+    },
+    reOne() {
+      this.step = 1
     },
     testCheck(val) {
       return !this.formConfig.checklist.includes(val)
@@ -183,12 +304,33 @@ export default {
     }
     .step-card {
       margin: 30px 20px;
+      overflow: auto;
       &-one {
         width: 1000px;
         margin: 40px auto;
       }
       /deep/ .el-input{
         width: 390px;
+      }
+      &-two {
+        width: 90%;
+        margin: 40px auto;
+        text-align: center;
+      }
+      &-three {
+        h3 {
+          text-align: center;
+        }
+        &-charts {
+          width: 800px;
+          min-height: 100px;
+          margin: 0 auto;
+          #charts {
+            height: 400px;
+            width: 700px;
+            margin: 0 auto;
+          }
+        }
       }
     }
   }

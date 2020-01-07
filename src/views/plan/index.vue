@@ -27,9 +27,7 @@
       <div slot="header" class="card-header">
         <span>xx项目拓扑展示</span>
       </div>
-      <div class="pro-card-map">
-        地图展示区域
-      </div>
+      <div class="pro-card-map" />
       <el-tabs v-model="mapListName" style="margin-top:20px" @tab-click="tabMapChange">
         <el-tab-pane label="节点信息" name="0" />
         <el-tab-pane label="链路信息" name="1" />
@@ -291,9 +289,10 @@ export default {
     .pro-card {
       margin: 15px 20px;
       &-map {
-        border: 1px solid black;
         width: 100%;
         height: 300px;
+        background: url('./img/1.png');
+        background-size: contain;
       }
     }
     .quota-card {
